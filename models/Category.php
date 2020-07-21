@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%categories}}".
@@ -30,10 +32,22 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at'], 'required'],
+            ['name', 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 60],
         ];
+    }
+
+    public function behaviors()
+    {
+
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'value' => new Expression('NOW()')
+            ]
+        ];
+
     }
 
     /**
@@ -43,9 +57,9 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'name' => 'Nome',
+            'created_at' => 'Criado em',
+            'updated_at' => 'Última atualização',
         ];
     }
 

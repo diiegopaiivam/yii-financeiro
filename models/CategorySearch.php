@@ -17,18 +17,9 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'created_at', 'updated_at'], 'safe'],
+            ['name', 'string', 'max' => 60],
+            ['name', 'safe'],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
     }
 
     /**
@@ -40,9 +31,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
-
-        // add conditions that should always apply here
+        $query = Category::find()->orderBy('name ASC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -51,17 +40,8 @@ class CategorySearch extends Category
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
 
