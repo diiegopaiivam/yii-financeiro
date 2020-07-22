@@ -50,7 +50,13 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
-        ]
+        ], 
+        'formatter' => [
+            'dateFormat'        => 'dd/MM/yyyy',
+            'decimalSeparator'  => ',',
+            'thousandSeparator' => '.',
+            'currencyCode'      => 'R$', 
+        ],
     ],
     'params' => $params,
 ];
