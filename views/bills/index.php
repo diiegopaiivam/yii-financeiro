@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Bill;
+use app\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BillSearch */
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             [
                 'attribute'         => 'category_id',
+                'filter'            => Category::getOptions(),
                 'headerOptions'     => ['class' => 'text-center', 'style' => 'width: 145px'],
                 'contentOptions'    => ['class' => 'text-center'],
                 'content'           => function(Bill $model, $key, $index, $column) {
@@ -42,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'         => 'type',
+                'filter'            => Bill::getTypeOptions(),
                 'headerOptions'     => ['class' => 'text-center', 'style' => 'width: 115px'],
                 'contentOptions'    => ['class' => 'text-center'],
                 'content'           => function(Bill $model, $key, $index, $column){
@@ -55,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'         => 'status',
+                'filter'            => Bill::getStatusOptions(),
                 'headerOptions'     => ['class' => 'text-center', 'style' => 'width: 160px'],
                 'contentOptions'    => ['class' => 'text-center'],
                 'content'           => function(Bill $model, $key, $index, $column){

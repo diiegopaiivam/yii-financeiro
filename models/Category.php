@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%categories}}".
@@ -71,5 +72,10 @@ class Category extends \yii\db\ActiveRecord
     public function getBills()
     {
         return $this->hasMany(Bill::className(), ['category_id' => 'id']);
+    }
+
+    public static function getOptions()
+    {
+        return ArrayHelper::map(static::find()->orderBy('name ASC')->all(), 'id', 'name');
     }
 }
