@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
@@ -16,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['Atualizar', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['Deletar', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['Atualizar', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['Deletar', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Deseja realmente apagar esse item?',
@@ -35,5 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+    <div class="list-group">
+        <?php foreach ($model->bills as $bill): ?>
+            <?php $color = ($bill->type === 1 ? 'success' : 'danger') ?>
+            <a href="<?= Url::to(['bills/update', 'id' => $bill->id]) ?>" class="list-group-item list-group-item-<?= $color ?>">
+                <h4 class="list-group-item-heading"><?= $bill->description ?></h4>
+                <p class="list-group-item-text">
+                    <?= $bill->date ?> | R$ <?= $bill->amount ?>
+                </p>
+            </a>
+        <?php endforeach; ?>
+    </div>
 
 </div>
